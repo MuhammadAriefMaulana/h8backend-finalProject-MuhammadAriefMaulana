@@ -1,0 +1,30 @@
+[
+    {
+      "name": "test1",
+      "username": "test1",
+      "email": "test1@mail.com",      
+      "password": "test1",
+      "role": "customer",
+      "address": "2165 Beilfuss Hill",
+      "phoneNumber": "08123456789"
+    },
+    {
+        "name": "test2",
+        "username": "test2",
+        "email": "test2@mail.com",      
+        "password": "test2",
+        "role": "customer",
+        "address": "5642 Packers Junction",
+        "phoneNumber": "08113827972"
+    },
+    {
+        "name": "admin",
+        "username": "admin",
+        "email": "admin@mail.com",      
+        "password": "admin",
+        "role": "admin",
+        "address": "82941 Macpherson Point",
+        "phoneNumber": "08111180000"
+    }
+  ]
+  
