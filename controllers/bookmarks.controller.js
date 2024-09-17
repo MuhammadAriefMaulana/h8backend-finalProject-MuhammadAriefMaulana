@@ -30,12 +30,17 @@ exports.addToMyBookmark = async (req, res, next) => {
       where: { userId: userId, movieId: movieId },
       defaults: {
       },
+      include: {
+        model: Movie,
+        attributes: ['title'],
+      }
     });
 
     const message = created
       ? 'Success adding new bookmark'
       : 'Already bookmarked';
 
+    
     const bookmarkWithMessage = {
       message,
       ...bookmarks.toJSON()      
