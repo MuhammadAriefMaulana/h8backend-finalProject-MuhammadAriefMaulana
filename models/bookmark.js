@@ -27,9 +27,9 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Bookmark',
   });
-  return Bookmark;
 
   Bookmark.beforeCreate(async (bookmark) => {
     user.password = await hash(user.password);
   });
+  return Bookmark;
 };
