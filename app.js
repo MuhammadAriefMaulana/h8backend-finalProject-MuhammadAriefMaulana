@@ -1,7 +1,6 @@
 require("dotenv").config(); // membaca file .env
 const express = require("express");
 const app = express();
-const port = 3000;
 
 app.use(express.json());
 app.get("/", (req, res) => {
@@ -19,6 +18,4 @@ app.use((err, req, res, next) => {
   res.status(status).json({ error, message });
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
+module.exports = app;
