@@ -3,6 +3,9 @@ const app = require("../app");
 const { sequelize, User, Bookmark } = require("../models");
 const bookmark = require("../models/bookmark");
 
+require("dotenv").config();
+const {TC1_NAME, TC1_ADDRESS, TC1_USERNAME, TC1_EMAIL, TC1_PASSWORD, TC1_PHONENUMBER} = process.env;
+
 let token;
 
 afterAll(() => {
@@ -23,51 +26,38 @@ afterAll(() => {
     });
 });
 
-beforeAll(async () => {
-  try {
-    // create user & get token
-    const user = await User.create({
-      name: "user73", username: "user73",
-      email: "user73@mail.com",
-      password: "user73",
-      address: "jakarta telkomsel gatsu",
-      phoneNumber: "628198734079"
-    });
-
-    token = user.generateToken();
-
-  } catch (error) {
-    console.log(error);
-  }
-});
-
 describe("Test Scenario", () => {
   it("Should be able to register", async () => {
     const response = await request(app)
       .post("/register")
       .set("Content-Type", "application/json")
       .send({
-        name: "user79", username: "user79",
-        email: "user79@mail.com",
-        password: "user79",
-        address: "jakarta telkomsel gatsu",
-        phoneNumber: "628198734089"
+        name: TC1_NAME,
+        username: TC1_USERNAME,
+        email: TC1_EMAIL,
+        password: TC1_PASSWORD,
+        address: TC1_ADDRESS,
+        phoneNumber: TC1_PHONENUMBER
       });
 
     expect(response.statusCode).toBe(201);
-    expect(response.body.email).toBe("user79@mail.com");
+    expect(response.body.email).toBe(TC1_EMAIL);
+
+
+
+    
   });
 
   it("Should be able to login", async () => {
     const response = await request(app)
       .post("/login")
       .set("Content-Type", "application/json")
-      .send({ email: "user79@mail.com", password: "user79" });
+      .send({ email: TC1_EMAIL, password: TC1_PASSWORD });
 
     expect(response.statusCode).toBe(200);
     expect(response.body.token).toBeDefined(); 
 
-    // token = response.body.token; //this should save JWT into variable for used later
+    token = response.body.token; //this should save JWT into variable for used later
   });
 
   it("Should not be able to login when email is invalid", async () => {
