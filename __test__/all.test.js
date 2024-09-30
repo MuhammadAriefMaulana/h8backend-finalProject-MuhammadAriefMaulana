@@ -4,7 +4,7 @@ const { sequelize, User, Bookmark } = require("../models");
 const bookmark = require("../models/bookmark");
 
 require("dotenv").config();
-const {TC1_NAME, TC1_ADDRESS, TC1_USERNAME, TC1_EMAIL, TC1_PASSWORD, TC1_PHONENUMBER} = process.env;
+const {TC1_NAME, TC1_ADDRESS, TC1_USERNAME, TC1_EMAIL, TC1_PASSWORD, TC1_PHONENUMBER, TC2_EMAIL, TC2_PASSWORD} = process.env;
 
 let token;
 
@@ -64,7 +64,7 @@ describe("Test Scenario", () => {
     const response = await request(app)
       .post("/login")
       .set("Content-Type", "application/json")
-      .send({ email: "test-invalid@mail.com", password: "user77" });
+      .send({ email: TC2_EMAIL, password: TC1_PASSWORD });
 
     expect(response.statusCode).toBe(401);
     expect(response.body.error).toBe("Unauthenticated");
@@ -75,7 +75,7 @@ describe("Test Scenario", () => {
     const response = await request(app)
       .post("/login")
       .set("Content-Type", "application/json")
-      .send({ email: "user79@mail.com", password: "rahasiaaa" });
+      .send({ email: TC1_EMAIL, password: TC2_PASSWORD });
 
     expect(response.statusCode).toBe(401);
     expect(response.body.error).toBe("Unauthenticated");
